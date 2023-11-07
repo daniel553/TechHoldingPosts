@@ -75,6 +75,10 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+
     //Test, junit
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
