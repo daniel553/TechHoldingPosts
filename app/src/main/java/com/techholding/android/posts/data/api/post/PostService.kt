@@ -4,6 +4,7 @@ import com.techholding.android.posts.data.api.model.PostResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface IPostService {
     /**
@@ -13,6 +14,7 @@ interface IPostService {
 
 }
 
+@Singleton
 class PostService @Inject constructor(
     private val postApi: PostApi
 ) : IPostService {

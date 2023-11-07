@@ -13,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -24,6 +26,9 @@ import com.techholding.android.posts.R
 @Composable
 fun PostListScreen(navController: NavController, viewModel: PostListViewModel) {
     val postListUiState by viewModel.uiState.collectAsState()
+    LaunchedEffect(true) {
+        viewModel.getAllPosts()
+    }
 
     Scaffold(
         topBar = {
