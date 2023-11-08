@@ -16,13 +16,13 @@ interface CommentDAO {
     suspend fun getAll(): List<CommentEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(postEntity: CommentEntity)
+    suspend fun insert(commentEntity: CommentEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMany(postEntity: List<CommentEntity>)
+    suspend fun insertMany(commentEntity: List<CommentEntity>)
 
     @Delete
-    suspend fun delete(postEntity: CommentEntity)
+    suspend fun delete(commentEntity: CommentEntity)
 
     @Query("DELETE FROM comment_entity")
     suspend fun deleteAll()

@@ -86,16 +86,19 @@ fun PostItemView(post: Post, onPressed: (id: Long) -> Unit, modifier: Modifier =
                     Text(
                         text = post.title.uppercase(),
                         style = MaterialTheme.typography.titleMedium,
-                        maxLines = 1,
+                        maxLines = 2,
                         softWrap = true,
                         modifier = Modifier.padding(start = 8.dp)
                     )
+                    //Uncomment for body preview
+                    /*
                     Text(
                         text = post.body,
                         style = MaterialTheme.typography.bodySmall,
                         maxLines = 2,
                         modifier = Modifier.padding(start = 8.dp)
                     )
+                     */
                 }
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowRight,
@@ -107,17 +110,6 @@ fun PostItemView(post: Post, onPressed: (id: Long) -> Unit, modifier: Modifier =
                 )
             }
         }
-    }
-}
-
-@Composable
-fun ShimmerView(
-    modifier: Modifier = Modifier,
-    label: String = "shimmerview",
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Surface(modifier = modifier) {
-        Column(content = content)
     }
 }
 
