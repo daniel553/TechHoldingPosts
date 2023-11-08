@@ -3,6 +3,7 @@ package com.techholding.android.posts.data.api.post
 import com.techholding.android.posts.data.api.model.PostResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,11 +22,18 @@ class PostService @Inject constructor(
 
     override suspend fun getAllPosts(): Result<List<PostResponse>?> {
         return withContext(Dispatchers.IO) {
-            val response = postApi.getAllPosts()
-            if (response.isSuccessful) {
-                Result.success(response.body())
+            val posts = runCatching {
+                postApi.getAllPosts()
+            }.getOrNull()
+
+            if (posts != null) {
+                if (posts.isSuccessful) {
+                    Result.success(posts.body())
+                } else {
+                    Result.failure(Exception("Can not get all posts"))
+                }
             } else {
-                Result.failure(Exception("Can not get all posts - error:${response.code()}"))
+                Result.failure(Exception("Can not get all posts from network"))
             }
         }
     }
