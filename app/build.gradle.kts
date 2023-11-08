@@ -66,8 +66,8 @@ dependencies {
 
     //Room
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-    kapt(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     // Hilt
     implementation(libs.hilt.android)
@@ -78,6 +78,9 @@ dependencies {
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
+
+    //Log
+    implementation(libs.timber)
 
     //Test, junit
     testImplementation(libs.junit)
