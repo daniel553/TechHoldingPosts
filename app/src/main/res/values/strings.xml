@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TechHoldingPosts</string>
+    <string name="post_list_title">Posts</string>
 </resources>
