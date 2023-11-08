@@ -2,4 +2,10 @@
     <string name="app_name">TechHoldingPosts</string>
     <string name="post_list_title">Posts</string>
     <string name="post_details_title">Details</string>
+    <string name="post_create_title">Add a Post</string>
+    <string name="post_form_title">Title</string>
+    <string name="post_form_title_sub">* Title field is required</string>
+    <string name="post_form_body">Share your ideas</string>
+    <string name="post_form_body_sub">* Body field is required</string>
+    <string name="post_form_add_button">Add Post</string>
 </resources>

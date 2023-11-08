@@ -9,6 +9,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.techholding.android.posts.ui.view.post.PostListScreen
 import com.techholding.android.posts.ui.view.post.PostListViewModel
+import com.techholding.android.posts.ui.view.post.create.PostCreateScreen
+import com.techholding.android.posts.ui.view.post.create.PostCreateViewModel
 import com.techholding.android.posts.ui.view.post.details.PostDetailsScreen
 import com.techholding.android.posts.ui.view.post.details.PostDetailsViewModel
 
@@ -17,10 +19,16 @@ fun MainNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Router.PostListScreen.path) {
-        composable(Router.PostListScreen.path) {
+        composable(
+            route = Router.PostListScreen.path,
+            arguments = listOf(navArgument(Router.ID) { type = NavType.LongType })
+        ) { stack ->
+            val viewModel = hiltViewModel<PostListViewModel>()
+            val id = stack.arguments?.getLong(Router.ID)
+            viewModel.setId(id ?: 0L)
             PostListScreen(
                 navController = navController,
-                viewModel = hiltViewModel<PostListViewModel>()
+                viewModel = viewModel
             )
         }
         composable(
@@ -31,6 +39,12 @@ fun MainNavigation() {
             val id = stack.arguments?.getLong(Router.ID)
             viewModel.setId(id)
             PostDetailsScreen(navController = navController, viewModel = viewModel)
+        }
+        composable(Router.PostCreateScreen.path) {
+            PostCreateScreen(
+                navController = navController,
+                viewModel = hiltViewModel<PostCreateViewModel>()
+            )
         }
     }
 }

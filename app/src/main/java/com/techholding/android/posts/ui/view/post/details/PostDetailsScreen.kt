@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.techholding.android.posts.R
+import com.techholding.android.posts.ui.nav.Router
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +40,7 @@ fun PostDetailsScreen(navController: NavController, viewModel: PostDetailsViewMo
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.popBackStack()
+                        navController.navigate(Router.PostListScreen.buildRoute(uiState.id.toString()))
                     }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
