@@ -16,11 +16,18 @@ class CommentService @Inject constructor(
 ) : ICommentService {
     override suspend fun getAllCommentsForPost(postId: Long): Result<List<CommentResponse>> {
         return withContext(Dispatchers.IO) {
-            val response = commentApi.getCommentsByPostId(postId)
-            if (response.isSuccessful) {
-                Result.success(response.body()!!)
+            val comments = runCatching {
+                commentApi.getCommentsByPostId(postId)
+            }.getOrNull()
+
+            if (comments != null) {
+                if (comments.isSuccessful) {
+                    Result.success(comments.body()!!)
+                } else {
+                    Result.failure(Exception("Get all comments response error"))
+                }
             } else {
-                Result.failure(Exception("Get all comments response error - code:${response.code()}"))
+                Result.failure(Exception("Can not get comments from network"))
             }
         }
     }

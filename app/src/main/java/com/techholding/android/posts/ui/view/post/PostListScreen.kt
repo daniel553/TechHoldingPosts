@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.techholding.android.posts.R
+import com.techholding.android.posts.ui.nav.Router
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,8 +55,10 @@ fun PostListScreen(navController: NavController, viewModel: PostListViewModel) {
                 !loading && posts.isNotEmpty() -> PostListView(
                     posts = posts,
                     modifier = Modifier.padding(padding),
-                    onPostSelected = {
-                        TODO("Go to details")
+                    onPostSelected = { postId ->
+                        navController.navigate(
+                            route = Router.PostDetailsScreen.buildRoute(postId.toString())
+                        )
                     }
                 )
             }

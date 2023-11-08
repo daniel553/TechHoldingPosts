@@ -4,9 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "comment_entity")
+@Entity(
+    tableName = "comment_entity",
+    primaryKeys = ["id", "postId"]
+)
 data class CommentEntity(
-    @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Long,
     @ColumnInfo(name = "name")
