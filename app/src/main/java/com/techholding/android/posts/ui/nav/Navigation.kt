@@ -19,10 +19,16 @@ fun MainNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Router.PostListScreen.path) {
-        composable(Router.PostListScreen.path) {
+        composable(
+            route = Router.PostListScreen.path,
+            arguments = listOf(navArgument(Router.ID) { type = NavType.LongType })
+        ) { stack ->
+            val viewModel = hiltViewModel<PostListViewModel>()
+            val id = stack.arguments?.getLong(Router.ID)
+            viewModel.setId(id ?: 0L)
             PostListScreen(
                 navController = navController,
-                viewModel = hiltViewModel<PostListViewModel>()
+                viewModel = viewModel
             )
         }
         composable(

@@ -56,6 +56,7 @@ fun PostListScreen(navController: NavController, viewModel: PostListViewModel) {
                 loading -> PostListShimmerView(modifier = Modifier.padding(padding))
                 !loading && posts.isNotEmpty() -> PostListView(
                     posts = posts,
+                    scrollToIndex = selectedIndex,
                     modifier = Modifier.padding(padding),
                     onPostSelected = { postId ->
                         navController.navigate(

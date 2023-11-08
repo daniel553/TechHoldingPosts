@@ -23,8 +23,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -32,11 +35,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.techholding.android.posts.R
+import com.techholding.android.posts.ui.nav.Router
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PostCreateScreen(navController: NavController, viewModel: PostCreateViewModel) {
     val state by viewModel.uiState.collectAsState()
+    val scope = rememberCoroutineScope()
+    LaunchedEffect(true) {
+        scope.launch {
+            viewModel.uiEvent.onEach {
+                when (it) {
+                    is PostCreateEvent.BackToList -> navController.navigate(
+                        route = Router.PostListScreen.buildRoute(it.id.toString())
+                    )
+                }
+            }.stateIn(scope)
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -107,6 +126,7 @@ fun PostFormView(
                 Text(
                     text = stringResource(id = R.string.post_form_title_sub),
                     color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -127,6 +147,7 @@ fun PostFormView(
                 Text(
                     text = stringResource(id = R.string.post_form_body_sub),
                     color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.fillMaxWidth()
                 )
             }

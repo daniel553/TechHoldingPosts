@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -26,7 +27,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.techholding.android.posts.model.Post
+import kotlinx.coroutines.launch
 
 @Preview(showBackground = true)
 @Composable
@@ -50,9 +54,23 @@ fun PostListViewPreview() {
 fun PostListView(
     posts: List<Post>,
     onPostSelected: (id: Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    scrollToIndex: Int = -1,
 ) {
-    LazyColumn(modifier = modifier) {
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+    LaunchedEffect(scrollToIndex) {
+        if (scrollToIndex > -1) {
+            scope.launch {
+                listState.animateScrollToItem(index = scrollToIndex)
+            }
+        }
+    }
+
+    LazyColumn(
+        state = listState,
+        modifier = modifier
+    ) {
         items(posts) { post ->
             PostItemView(post, onPressed = { postId ->
                 onPostSelected(postId)
