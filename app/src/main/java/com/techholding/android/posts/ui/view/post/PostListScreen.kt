@@ -49,13 +49,16 @@ fun PostListScreen(navController: NavController, viewModel: PostListViewModel) {
         modifier = Modifier.fillMaxSize()
     ) { padding ->
         with(postListUiState) {
-            PostListView(
-                posts = posts,
-                modifier = Modifier.padding(padding),
-                onPostSelected = {
-                    TODO("Go to details")
-                }
-            )
+            when {
+                loading -> PostListShimmerView(modifier = Modifier.padding(padding))
+                !loading && posts.isNotEmpty() -> PostListView(
+                    posts = posts,
+                    modifier = Modifier.padding(padding),
+                    onPostSelected = {
+                        TODO("Go to details")
+                    }
+                )
+            }
         }
     }
 
