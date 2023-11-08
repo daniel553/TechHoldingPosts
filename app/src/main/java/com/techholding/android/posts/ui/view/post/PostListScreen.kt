@@ -43,7 +43,9 @@ fun PostListScreen(navController: NavController, viewModel: PostListViewModel) {
                 })
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { TODO("Add post") }) {
+            FloatingActionButton(onClick = {
+                navController.navigate(Router.PostCreateScreen.path)
+            }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
         },
