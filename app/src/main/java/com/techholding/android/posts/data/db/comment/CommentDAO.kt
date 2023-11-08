@@ -15,6 +15,9 @@ interface CommentDAO {
     @Query("SELECT * FROM comment_entity")
     suspend fun getAll(): List<CommentEntity>
 
+    @Query("SELECT * FROM comment_entity WHERE postId = :postId")
+    suspend fun getByPostId(postId: Long): List<CommentEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(commentEntity: CommentEntity)
 

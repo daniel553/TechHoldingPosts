@@ -26,7 +26,15 @@ interface IPostRepository {
      */
     suspend fun fetchPostCommentsById(postId: Long): Boolean
 
+    /**
+     * From cache stored in db
+     */
     suspend fun postsFromDb(): Flow<List<PostEntity>>
+
+    /**
+     * From cache stored in db
+     */
+    suspend fun postWithComments(postId: Long): Flow<PostEntity>
 }
 
 @Singleton
@@ -63,6 +71,13 @@ class PostRepository @Inject constructor(
 
     override suspend fun postsFromDb(): Flow<List<PostEntity>> = flow() {
         emit(postDao.getAll())
+    }
+
+    override suspend fun postWithComments(postId: Long): Flow<PostEntity> = flow {
+        val post = postDao.get(postId)
+        emit(post)
+        var postComments = commentsDao.getByPostId(postId)
+        emit(post.apply { comments = postComments })
     }
 
 }

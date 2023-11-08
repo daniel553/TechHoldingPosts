@@ -14,7 +14,7 @@ fun PostResponse.toPostEntity(): PostEntity {
         id = this.id,
         title = this.title,
         body = this.body,
-        userId = this.userId
+        userId = this.userId,
     )
 }
 
