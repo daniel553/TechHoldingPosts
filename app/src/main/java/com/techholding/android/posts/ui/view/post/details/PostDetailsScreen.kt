@@ -15,6 +15,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -24,6 +26,7 @@ import com.techholding.android.posts.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PostDetailsScreen(navController: NavController, viewModel: PostDetailsViewModel) {
+    val uiState by viewModel.uiState.collectAsState()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -46,7 +49,7 @@ fun PostDetailsScreen(navController: NavController, viewModel: PostDetailsViewMo
         modifier = Modifier.fillMaxSize()
     ) { padding ->
         Box(modifier = Modifier.padding(padding)) {
-            Text(text = "DEtails")
+            PostDetailsView(state = uiState)
         }
     }
 }
