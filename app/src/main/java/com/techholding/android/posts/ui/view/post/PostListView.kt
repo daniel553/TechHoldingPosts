@@ -8,9 +8,9 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,7 +24,6 @@ import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -81,7 +80,7 @@ fun PostItemView(post: Post, onPressed: (id: Long) -> Unit, modifier: Modifier =
                 modifier = Modifier.padding(8.dp)
             ) {
                 Column(
-                    Modifier.weight(0.8f)
+                    modifier = Modifier.weight(0.9f)
                 ) {
                     Text(
                         text = post.title.uppercase(),
@@ -100,14 +99,19 @@ fun PostItemView(post: Post, onPressed: (id: Long) -> Unit, modifier: Modifier =
                     )
                      */
                 }
-                Icon(
-                    imageVector = Icons.Default.KeyboardArrowRight,
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .weight(0.1f)
-                        .padding(start = 8.dp, end = 8.dp)
-                )
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.weight(0.1f)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowRight,
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .weight(0.1f)
+                            .padding(start = 8.dp, end = 8.dp)
+                    )
+                }
             }
         }
     }
@@ -156,7 +160,7 @@ fun PostListShimmerView(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Column(
-                        Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Spacer(
                             modifier = Modifier
