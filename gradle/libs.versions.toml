@@ -13,6 +13,8 @@ lifecycle-runtime-ktx = "2.6.1"
 retrofit = "2.9.0"
 room-version = "2.6.0"
 timber-version = "5.0.1"
+coroutines = "1.1.0"
+mockk = "1.13.5"
 
 [libraries]
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
@@ -32,6 +34,8 @@ lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtim
 material3 = { group = "androidx.compose.material3", name = "material3" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+test-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+test-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber-version" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
