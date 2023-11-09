@@ -90,4 +90,8 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+    //mockk & coroutines
+    testImplementation(libs.test.mockk)
+    testImplementation(libs.test.coroutines)
 }
