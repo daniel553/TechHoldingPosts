@@ -77,7 +77,7 @@ class PostRepository @Inject constructor(
         }.isSuccess
     }
 
-    override suspend fun postsFromDb(): Flow<List<PostEntity>> = flow() {
+    override suspend fun postsFromDb(): Flow<List<PostEntity>> = flow {
         emit(postDao.getAll())
     }
 

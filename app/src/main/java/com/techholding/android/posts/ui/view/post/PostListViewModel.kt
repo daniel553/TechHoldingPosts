@@ -26,18 +26,7 @@ class PostListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            subscribeToAllPostsUseCase()
-                .onEach { posts ->
-                    val updated = _uiState.updateAndGet { state ->
-                        state.copy(posts = posts, selectedIndex = -1)
-                    }
-                    if (updated.selected > 0) {
-                        val selectedIndex =
-                            updated.posts.indexOf(updated.posts.find { updated.selected == it.id })
-                        if (selectedIndex >= 0)
-                            _uiState.update { state -> state.copy(selectedIndex = selectedIndex) }
-                    }
-                }.stateIn(viewModelScope, started = SharingStarted.Eagerly, 5_000)
+            subscribe()
         }
     }
 
@@ -45,8 +34,24 @@ class PostListViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { state -> state.copy(loading = true) }
             val fetched = fetchAllPostsUseCase()
+            subscribe()
             _uiState.update { state -> state.copy(loading = false, fetched = fetched) }
         }
+    }
+
+    private suspend fun subscribe() {
+        subscribeToAllPostsUseCase()
+            .onEach { posts ->
+                val updated = _uiState.updateAndGet { state ->
+                    state.copy(posts = posts, selectedIndex = -1)
+                }
+                if (updated.selected > 0) {
+                    val selectedIndex =
+                        updated.posts.indexOf(updated.posts.find { updated.selected == it.id })
+                    if (selectedIndex >= 0)
+                        _uiState.update { state -> state.copy(selectedIndex = selectedIndex) }
+                }
+            }.stateIn(viewModelScope, started = SharingStarted.Eagerly, 5_000)
     }
 
     fun setId(id: Long) {
@@ -54,6 +59,7 @@ class PostListViewModel @Inject constructor(
             _uiState.update { state -> state.copy(selected = id) }
         }
     }
+
 }
 
 data class PostListUiState(
