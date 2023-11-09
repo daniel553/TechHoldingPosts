@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.techholding.android.posts.model.Comment
@@ -61,24 +62,22 @@ fun PostDetailsHeaderView(title: String, body: String) {
                     text = title.uppercase(),
                     style = MaterialTheme.typography.titleMedium,
                     softWrap = true,
-                    modifier = Modifier.padding(start = 8.dp)
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .testTag("details_title")
                 )
                 Text(
                     text = body,
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(start = 8.dp)
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .testTag("details_body")
                 )
             }
         }
     }
 }
 
-/**
- * val name: String,
- *     val email: String,
- *     val body: String,
- *     val postId: Long,
- */
 @Composable
 fun CommentItemView(comment: Comment) {
     with(comment) {
@@ -86,6 +85,7 @@ fun CommentItemView(comment: Comment) {
             modifier = Modifier
                 .padding(top = 4.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
+                .testTag("comment_${comment.id}")
         ) {
             Row(
                 modifier = Modifier.padding(top = 4.dp)
