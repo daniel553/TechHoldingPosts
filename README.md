@@ -26,7 +26,7 @@ Install the latest version of Android studio and:
 Clone repo and open it Android studio.
 Execute and install generated APK in the emulator or device
 OR
-Use "dist/demo.apk"
+Download from "app/dist/**.apk"
 
 ## Usage
 
